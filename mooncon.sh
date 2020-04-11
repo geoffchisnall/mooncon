@@ -19,7 +19,7 @@ todate=$(date "+%Y-%m-%d")
 foldername=recon-$todate
 domain=$1
 
-#Check if jq, httprobe and aquatone is installed
+#Check if jq, sublist3r, httprobe and aquatone is installed
 
 if [ ! -x "$(command -v jq)" ]; then
 	echo "[-] This script requires jq. Exiting."

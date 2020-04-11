@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#Inspired by nahamsec - https://github.com/nahamsec
+
 echo "
 ███▄ ▄███▓ ▒█████   ▒█████   ███▄    █  ▄████▄   ▒█████   ███▄    █ 
 ▓██▒▀█▀ ██▒▒██▒  ██▒▒██▒  ██▒ ██ ▀█   █ ▒██▀ ▀█  ▒██▒  ██▒ ██ ▀█   █ 
@@ -16,6 +18,34 @@ echo "
 todate=$(date "+%Y-%m-%d")
 foldername=recon-$todate
 domain=$1
+
+#Check if jq, httprobe and aquatone is installed
+
+if [ ! -x "$(command -v jq)" ]; then
+	echo "[-] This script requires jq. Exiting."
+	exit 1
+fi
+
+if [ ! -x "$(command -v sublist3r )" ]; then
+	echo "[-] This script requires sublist3r. Exiting."
+	exit 1
+fi
+
+if [ ! -x "$(command -v httprobe)" ]; then
+	echo "[-] This script requires httprobe. Exiting."
+	exit 1
+fi
+
+if [ ! -x "$(command -v aquatone)" ]; then
+	echo "[-] This script requires aquaton. Exiting."
+	exit 1
+fi
+
+if [ ! -x "$(command -v chromium)" ]; then
+	echo "[-] This script requires chromium. Exiting."
+	exit 1
+fi
+
 
 usage() { echo -e "Usage: ./mooncon.sh domain.com" 1>&2; exit 1; }
 
@@ -85,7 +115,8 @@ echo ""
 echo "Let's check if the sites are up"
 
 echo "starting httprobe"
-cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up > /dev/null 2>&1
+#cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up > /dev/null 2>&1
+cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up 
 echo "[+] Number of domains found that are responding: $(cat $foldername/$domain.up | wc -l)"
 echo "[+] Number of domains found that are https: $(cat $foldername/$domain.up | grep "https://" | wc -l)"
 echo "[+] Number of domains found that are http: $(cat $foldername/$domain.up | grep "http://" |  wc -l)"
@@ -93,5 +124,5 @@ echo "[+] Number of domains found that are http: $(cat $foldername/$domain.up | 
 echo ""
 
 echo "Starting Aquatone"
-#cat $foldername/$domain.up | aquatone -chrome-path /usr/bin/chromium > /dev/null 2>&1
+cat $foldername/$domain.up | aquatone -ports 80,443,8000,8080,8443,9443 -chrome-path /usr/bin/chromium -out $foldername/aquatone-screenshots 2>&1
 echo "Aquatone completed"

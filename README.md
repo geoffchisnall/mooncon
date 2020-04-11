@@ -5,6 +5,9 @@ usage: ./mooncon domain.com
 
 Requirements:
 
+[+]jq[+]
+apt install jq
+
 [+]Sublist3r[+]
 
 Kali Linux has it in the repository
@@ -16,3 +19,8 @@ https://github.com/aboul3la/Sublist3r.git
 
 go get -u github.com/tomnomnom/httprobe
 this puts in ~/go/bin/httprobe
+
+[+]Aquaone[+]
+https://github.com/michenriksen/aquatone
+
+

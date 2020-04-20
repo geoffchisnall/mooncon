@@ -93,7 +93,7 @@ echo "[+] Number of domains found in crtsh: $(cat $foldername/$domain.crtsh | wc
 echo ""
 
 echo "[+]Starting certspotter[+]"
-curl -s https://certspotter.com/api/v0/certs\?domain\=$domain | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep -w $domain\$ | tee $foldername/$domain.certspotter > /dev/null
+curl -s https://api.certspotter.com/v1/issuances\?domain\=$domain\&expand\=dns_names | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep -w $domain\$ | tee $foldername/$domain.certspotter > /dev/null
 echo "[+] Number of domains found in certspotter: $(cat $foldername/$domain.certspotter | wc -l)"
 
 echo ""

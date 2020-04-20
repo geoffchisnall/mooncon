@@ -1,39 +1,41 @@
 # mooncon
-Domain Recon
+-Domain Recon
 
-usage: ./mooncon domain.com
-
---------------------
-
-Requirements:
-
-[+]jq[+]
-
-apt install jq
+-usage: ./mooncon domain.com
 
 --------------------
 
-[+]Sublist3r[+]
+#### requirements:
 
-Kali Linux has it in the repository
+#### [+]jq[+]
 
-apt install sublist3r
-
-or install it from Github
-
-https://github.com/aboul3la/Sublist3r.git
+- apt install jq
 
 --------------------
 
-[+]HTTPROBE[+]
+#### [+]Sublist3r[+]
 
-go get -u github.com/tomnomnom/httprobe
+- apt install sublist3r
 
-this puts in ~/go/bin/httprobe
+- or install it from Github
+
+- https://github.com/aboul3la/Sublist3r.git
 
 --------------------
 
-[+]Aquaone[+]
+#### [+]HTTPROBE[+]
+
+- go get -u github.com/tomnomnom/httprobe
+
+- this puts in ~/go/bin/httprobe
+
+--------------------
+
+#### [+]Aquaone[+]
+
+- Install Google Chrome or Chromium browser -- Note: Google Chrome is currently giving unreliable results when running in headless mode, so it is recommended to install Chromium for the best results.
+- Download the [latest release](https://github.com/michenriksen/aquatone/releases/latest) of Aquatone for your operating system. 
+- Uncompress the zip file and move the aquatone binary to your desired location. You probably want to move it to a location in your $PATH for easier use.
 
 https://github.com/michenriksen/aquatone
 

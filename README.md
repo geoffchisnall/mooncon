@@ -1,5 +1,6 @@
 # mooncon
--Domain Recon
+
+-Domain Recon using sublist3r, [crtsh](https://crt.sh/) and [certspotter](https://certspotter.com)
 
 -usage: ./mooncon domain.com
 

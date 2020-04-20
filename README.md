@@ -17,17 +17,13 @@
 
 - apt install sublist3r
 
-- or install it from Github
-
-- https://github.com/aboul3la/Sublist3r.git
+- Get it from Github [sublist3r](https://github.com/aboul3la/Sublist3r.git)
 
 --------------------
 
 #### [+]HTTPROBE[+]
 
-- go get -u github.com/tomnomnom/httprobe
-
-- this puts in ~/go/bin/httprobe
+- Get it from Github [httprobe](github.com/tomnomnom/httprobe)
 
 --------------------
 

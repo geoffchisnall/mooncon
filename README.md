@@ -1,7 +1,7 @@
 # mooncon
 
 ##### Summary
--Domain Recon script which uses sublist3r, [crtsh](https://crt.sh/) and [certspotter](https://certspotter.com) to gather a list of subdomains, check which urls are active via [httprobe](github.com/tomnomnom/httprobe) and then uses [Aquatone](https://github.com/michenriksen/aquatone) to grab a screenshot of each url.
+-A passive domain recon script which uses sublist3r, [crtsh](https://crt.sh/) and [certspotter](https://certspotter.com) to gather a list of subdomains, check which urls are active via [httprobe](github.com/tomnomnom/httprobe) and then uses [Aquatone](https://github.com/michenriksen/aquatone) to grab a screenshot of each url.
 
 -usage: ./mooncon domain.com
 

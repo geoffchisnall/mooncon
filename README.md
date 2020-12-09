@@ -1,39 +1,36 @@
-# mooncon
+#mooncon
 
-##### Summary
--A domain recon script which uses sublist3r, [crtsh](https://crt.sh/) and [certspotter](https://certspotter.com) to gather a list of subdomains, check which urls are active via [httprobe](github.com/tomnomnom/httprobe) and then uses [Aquatone](https://github.com/michenriksen/aquatone) to grab a screenshot of each url.
+Domain Recon
 
--usage: ./mooncon domain.com
+usage: ./mooncon domain.com
 
---------------------
+#v1
 
-#### requirements:
+Grabs given domain, gets the subdomains via sublis3r, crtsh and certspotter and then runs it through httprobe to check if alive and runs it through aquatone.
 
-#### [+]jq[+]
+#v2
 
-- apt install jq
+- removed certspotter, httprobe and aquatone
+- added nslookup to find the subdomain ips
 
---------------------
-
-#### [+]Sublist3r[+]
-
-- apt install sublist3r
-
-- Get it from Github [sublist3r](https://github.com/aboul3la/Sublist3r.git)
+Requirements:
 
 --------------------
 
-#### [+]HTTPROBE[+]
+[+]jq[+]
 
-- Get it from Github [httprobe](github.com/tomnomnom/httprobe)
+apt install jq
 
 --------------------
 
-#### [+]Aquatone[+]
+[+]Sublist3r[+]
 
-- Install Google Chrome or Chromium browser -- Note: Google Chrome is currently giving unreliable results when running in headless mode, so it is recommended to install Chromium for the best results.
-- Download the [latest release](https://github.com/michenriksen/aquatone/releases/latest) of Aquatone for your operating system. 
-- Uncompress the zip file and move the aquatone binary to your desired location. You probably want to move it to a location in your $PATH for easier use.
- - [Aquatone])https://github.com/michenriksen/aquatone)
+Kali Linux has it in the repository
 
+apt install sublist3r
 
+or install it from Github
+
+https://github.com/aboul3la/Sublist3r.git
+
+--------------------

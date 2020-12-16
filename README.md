@@ -12,6 +12,7 @@ Grabs given domain, gets the subdomains via sublis3r, crtsh and certspotter and 
 
 - removed certspotter, httprobe and aquatone
 - added nslookup to find the subdomain ips
+- added geolocation
 
 Requirements:
 

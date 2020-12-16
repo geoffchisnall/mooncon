@@ -17,6 +17,7 @@ echo "
 
 todate=$(date "+%Y-%m-%d")
 foldername=recon-$todate
+directory=recon
 domain=$1
 
 #Check if jq, sublist3r, httprobe is installed
@@ -45,25 +46,35 @@ fi
 echo "Starting recon phase"
 echo ""
 
-if [ -d "$domain" ]
+if [ -d "$directory" ]
 then 
-	echo "Directory for target $domain already exists"
+	echo "Directory for target $directory already exists"
 
 else
-	echo "Creating directory for target $domain."
-	mkdir $domain
+	echo "Creating directory for target $directory."
+	mkdir $directory
 fi
 
-if [ -d "$domain/$foldername" ]
+
+if [ -d "$directory/$domain" ]
+then 
+	echo "Directory for target $directory/$domain already exists"
+
+else
+	echo "Creating directory for target $directory/$domain."
+	mkdir $directory/$domain
+fi
+
+if [ -d "$directory/$domain/$foldername" ]
 then
-  echo "Directory for $domain/$foldername already exists"
+  echo "Directory for $directory/$domain/$foldername already exists"
 
 else
-  echo "Creating directory for $domain/$foldername."
-  mkdir $domain/$foldername
+  echo "Creating directory for $directory/$domain/$foldername."
+  mkdir $directory/$domain/$foldername
 fi
 
-cd $domain
+cd $directory/$domain
 
 echo ""
 echo ""
@@ -90,11 +101,11 @@ cat $foldername/$domain.crtsh | tee -a $foldername/$domain.domains.tmp > /dev/nu
 cat $foldername/$domain.domains.tmp | sort -u | tee $foldername/$domain.domains > /dev/null 2>&1
 rm $foldername/$domain.domains.tmp
 echo "[+] Number of unique subdomains found: $(cat $foldername/$domain.domains | wc -l)"
-echo "[+] Check : $domain/$foldername/$domain.domains"
+echo "[+] Check : $directory/$domain/$foldername/$domain.domains"
 
 echo ""
 
-#echo "[+] Let's check if the sites are up [+]"
+echo "[+] Let's check if the sites are up [+]"
 
 #echo "starting httprobe"
 #cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up > /dev/null 2>&1
@@ -118,16 +129,30 @@ done < $foldername/$domain.domains
 
 echo "[+] Let's group the subdomains and ips together [+]"
 echo ""
-#Sort the Domains with IPs
+#echo Sort the Domains with IPs
 cat $foldername/$domain.all.tmp | sort -u | tee $foldername/$domain.all > /dev/null 2>&1
 echo "[+] Number of subdomains with ips found: $(cat $foldername/$domain.all | wc -l)"
-echo "[+] Check : $domain/$foldername/$domain.all"
+echo "[+] Check : $directory/$domain/$foldername/$domain.all"
 echo ""
 #Sort the IPs
 cat $foldername/$domain.all.tmp | awk '{print $2}' | sort -u | tee $foldername/$domain.ips > /dev/null 2>&1
 echo "[+] Number of IPs found: $(cat $foldername/$domain.ips | wc -l)"
-echo "[+] Check : $domain/$foldername/$domain.ips"
+echo "[+] Check : $directory/$domain/$foldername/$domain.ips"
 rm $foldername/$domain.all.tmp
 
+echo ""
+
+
+echo "Let's get the geolocation of the subdomains and IPs"
+while read domainfile;
+do
+	domainname=$(echo $domainfile | awk '{print $1}')
+	domainip=$(echo $domainfile | awk '{print $2}')
+	#echo $ipa
+	domainisp=$(curl -s http://ipwhois.app/json/$domainip | jq '"\(.continent), \(.country), \(.org)"' )
+	echo $domainname, $domainip, $domainisp | tee -a $foldername/$domain.geolocation
+done < $foldername/$domain.all
+echo ""
+echo "[+] Check : $directory/$domain/$foldername/$domain.geolocation"
 echo ""
 echo "[+] DONE [+]"

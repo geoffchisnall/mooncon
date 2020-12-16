@@ -129,7 +129,7 @@ done < $foldername/$domain.domains
 
 echo "[+] Let's group the subdomains and ips together [+]"
 echo ""
-#echo Sort the Domains with IPs
+#Sort the Domains with IPs
 cat $foldername/$domain.all.tmp | sort -u | tee $foldername/$domain.all > /dev/null 2>&1
 echo "[+] Number of subdomains with ips found: $(cat $foldername/$domain.all | wc -l)"
 echo "[+] Check : $directory/$domain/$foldername/$domain.all"
@@ -148,7 +148,6 @@ while read domainfile;
 do
 	domainname=$(echo $domainfile | awk '{print $1}')
 	domainip=$(echo $domainfile | awk '{print $2}')
-	#echo $ipa
 	domainisp=$(curl -s http://ipwhois.app/json/$domainip | jq '"\(.continent), \(.country), \(.org)"' )
 	echo $domainname, $domainip, $domainisp | tee -a $foldername/$domain.geolocation
 done < $foldername/$domain.all

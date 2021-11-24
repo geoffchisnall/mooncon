@@ -20,7 +20,7 @@ foldername=recon-$todate
 directory=recon
 domain=$1
 
-#Check if jq, sublist3r, httprobe is installed
+#Check if jq, sublist3r is installed
 
 if [ ! -x "$(command -v jq)" ]; then
 	echo "[-] This script requires jq. Exiting."
@@ -29,11 +29,6 @@ fi
 
 if [ ! -x "$(command -v sublist3r )" ]; then
 	echo "[-] This script requires sublist3r. Exiting."
-	exit 1
-fi
-
-if [ ! -x "$(command -v httprobe)" ]; then
-	echo "[-] This script requires httprobe. Exiting."
 	exit 1
 fi
 
@@ -102,17 +97,6 @@ cat $foldername/$domain.domains.tmp | sort -u | tee $foldername/$domain.domains 
 rm $foldername/$domain.domains.tmp
 echo "[+] Number of unique subdomains found: $(cat $foldername/$domain.domains | wc -l)"
 echo "[+] Check : $directory/$domain/$foldername/$domain.domains"
-
-echo ""
-
-echo "[+] Let's check if the sites are up [+]"
-
-#echo "starting httprobe"
-#cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up > /dev/null 2>&1
-#cat $foldername/$domain.domains | httprobe | tee $foldername/$domain.up 
-#echo "[+] Number of domains found that are responding: $(cat $foldername/$domain.up | wc -l)"
-#echo "[+] Number of domains found that are https: $(cat $foldername/$domain.up | grep "https://" | wc -l)"
-#echo "[+] Number of domains found that are http: $(cat $foldername/$domain.up | grep "http://" |  wc -l)"
 
 echo ""
 
